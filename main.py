@@ -83,8 +83,8 @@ def get_next_flight(time: int, destination: location):
 # Endpoint to find the busiest airport at a given hour
 @app.get("/busiest/{time}")
 def get_busiest_airport(time: int):
-
-    busiest_airport = 0
+    #need to figure this out
+    busiest_airport = "need to figure this out"
     return busiest_airport
     
 # Close the database connection after request
