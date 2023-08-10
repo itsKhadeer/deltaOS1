@@ -13,29 +13,8 @@ db_config = {
     "password": "Khan@2004",
     "database": "deltaos1"
 }
-
 db_conn = mysql.connector.connect(**db_config)
 db_cursor = db_conn.cursor(dictionary=True)
-
-
-
-
-
-
-# Define models
-class Airport(BaseModel):
-    id: int
-    name: str
-    location: str
-
-class Flight(BaseModel):
-    id: int
-    name: str
-    departure_airport: Airport
-    arrival_airport: Airport
-    departure_time: int
-    arrival_time: int
-
 
 
 # Endpoint to get flights at a specific airport on a given day
@@ -86,7 +65,8 @@ def get_busiest_airport(time: int):
     #need to figure this out
     busiest_airport = "need to figure this out"
     return busiest_airport
-    
+
+
 # Close the database connection after request
 @app.on_event("shutdown")
 def shutdown_db_conn():
