@@ -9,8 +9,8 @@ CREATE TABLE Flights (
     name VARCHAR(255) NOT NULL,
     departure_airport_id INT,
     arrival_airport_id INT ,
-    departure_time INT,
-    arrival_time INT,
+    departure_time DATETIME,
+    arrival_time DATETIME,
     FOREIGN KEY (departure_airport_id) REFERENCES Airports(id),
     FOREIGN KEY (arrival_airport_id) REFERENCES Airports(id)
 );
