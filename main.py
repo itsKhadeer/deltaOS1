@@ -17,7 +17,6 @@ db_conn = mysql.connector.connect(**db_config)
 db_cursor = db_conn.cursor(dictionary=True)
 
 
-
 # Endpoint to get flights at a specific airport on a given day
 @app.get("/airport/{airport_id}")
 def get_flights_at_airport(airport_id: int, ):
@@ -38,7 +37,6 @@ class location(str, Enum):
 
 
 
-
 @app.get("/nextFlight/{time}/{destination}")
 def get_next_flight(time: datetime, destination: location):
 
@@ -56,15 +54,13 @@ def get_next_flight(time: datetime, destination: location):
     
 
 
-
 # Endpoint to find the busiest airport at a given hour
 @app.get("/busiest/{time}")
 def get_busiest_airport(time: int):
 
-    querry = "select departure_airport_id from flights where hour(departure_time) = %s"
-    db_cursor.execute(querry, (time,))
+    query = "select departure_airport_id from flights where hour(departure_time) = %s"
+    db_cursor.execute(query, (time,))
     the_table = db_cursor.fetchall()
-    print(the_table)
     frequency_dict = {}
     for rows in the_table: 
 
@@ -73,10 +69,9 @@ def get_busiest_airport(time: int):
         
         else : 
             frequency_dict[rows["departure_airport_id"]] = 1
-    print(frequency_dict)
 
-    querry = "select arrival_airport_id from flights where hour(arrival_time) = %s"
-    db_cursor.execute(querry, (time,))
+    query = "select arrival_airport_id from flights where hour(arrival_time) = %s"
+    db_cursor.execute(query, (time,))
     the_table = db_cursor.fetchall()
     
     for rows in the_table: 
@@ -89,11 +84,18 @@ def get_busiest_airport(time: int):
     
     if frequency_dict:
         max_val = sorted(frequency_dict.values(), reverse=True)
-        Keymax = max_val[0]
-        print(frequency_dict)
-        querry="select name,location from airports where id = %s"
-        db_cursor.execute(querry,(Keymax,))
+
+
+        #finding the key in the frequency_dict with the value "max_val"
+        key_list = list(frequency_dict.keys())
+        val_list = list(frequency_dict.values())
+        position = val_list.index(max_val[0])
+        Keymax = key_list[position]
+        
+        query="select name,location from airports where id = %s"
+        db_cursor.execute(query,(Keymax,))
         return db_cursor.fetchall()
+    
     return "there are no flights landing or taking off at the given hour in any airport"
             
         
