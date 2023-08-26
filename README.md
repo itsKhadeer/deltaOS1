@@ -1,9 +1,9 @@
 # deltaOS1 - delta on site 1 held on 9th august 2023
 
 problem statement:-
-Flights: Design a backend for storing data of flights on a particular day, and implement the following routes:<br>
+Flights: Design a backend for storing data of flights on a particular day, and implement the following routes:
 	
-	You’ll need to define Flights DB and Airports DB<br>
+	You’ll need to define Flights DB and Airports DB
 
 	/airport{airport_id}: Return the list of all the flights which
  	arrive and depart from the airport on the Particular day.
